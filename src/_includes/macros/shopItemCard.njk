@@ -1,0 +1,28 @@
+{% macro shopItemCard(params) %}
+
+      <article>
+        {% if params.image %}
+        <div 
+          style="background-image: url('{{ params.image }}');" 
+          alt="{{ params.name }}"
+          width="60"
+          height="60"
+          class="shopItem__img">
+
+          <a class="shopItem__link" href="/products/{{ params.name | slug }}/index.html">voir ce produit</a>
+
+
+        </div>
+        {% endif %}
+        <div class="shopItem__mainInfos">
+          <h2 class="shopItem__name">{{ params.name }}</h2>
+          <p class="shopItem__price"> {{ params.sizes[0].priceDisplay }} </p>
+        </div>
+
+          
+        
+        <p class="shopItem__collection">collection {{params.collection}}</p>
+      </article>
+
+
+{% endmacro %}

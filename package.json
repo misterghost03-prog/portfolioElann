@@ -1,0 +1,42 @@
+{
+  "name": "crok-studio-website",
+  "version": "0.0.1",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "clear": "rimraf \"./dist\"",
+    "eleventy": "npx @11ty/eleventy --quiet",
+    "server": "npx @11ty/eleventy --serve --quiet",
+    "styles:dev": "sass \"./src/assets/scss/main.scss\" \"./dist/assets/css/main.css\" --embed-source-map --source-map-urls=\"absolute\"",
+    "styles:prod": "sass \"./src/assets/scss/main.scss\" \"./dist/assets/css/main.css\" --no-source-map",
+    "scripts:dev": "esbuild --bundle \"./src/assets/js/main.js\" --target=es2020 --outfile=\"./dist/assets/js/main.bundle.js\"",
+    "scripts:prod": "esbuild --bundle --minify \"./src/assets/js/main.js\" --target=es2020 --outfile=\"./dist/assets/js/main.bundle.js\"",
+    "watch:styles": "onchange \"./src/assets/scss/**/*\" -- npm run styles:dev",
+    "watch:scripts": "onchange \"./src/assets/js/alpine/shop.js\" \"./functions/**/*\" -- npm run scripts:dev",
+    "build": "npm-run-all clear --parallel eleventy scripts:prod styles:prod",
+    "dev": "npm-run-all --parallel server watch:*",
+    "netlify": "npm run dev & npx netlify dev"
+  },
+  "keywords": [],
+  "author": "Elann Fraiture & Arno Joachim",
+  "license": "MIT",
+  "description": "Crok Studio official website",
+  "browserslist": ">= 0.5%, not dead",
+  "dependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "@11ty/eleventy-img": "^6.0.4",
+    "alpinejs": "^3.14.8",
+    "dotenv": "^16.4.7",
+    "esbuild": "^0.25.0",
+    "lightningcss-cli": "^1.29.1",
+    "npm-run-all": "^4.1.5",
+    "onchange": "^7.1.0",
+    "rimraf": "^6.0.1",
+    "sass": "^1.85.0",
+    "slugify": "^1.6.6",
+    "stripe": "^17.6.0"
+  },
+  "devDependencies": {
+    "netlify-cli": "^23.11.1"
+  }
+}

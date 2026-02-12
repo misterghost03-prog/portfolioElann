@@ -1,0 +1,434 @@
+/* banner */
+
+.banner {
+    position: relative;
+    width: 100%;
+    grid-area: -1 / 1 / 1 / -1;
+
+    &__slide {
+    display: none;
+    flex: 0 0 100%;
+
+    &--active {
+        display: block;
+        position: relative;
+    }
+    }
+
+    & img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 3/5;
+    object-fit: cover;       /* preserve aspect, center & crop to fill */
+    object-position: center; /* ensure centered cropping */
+    display: block;
+    }
+
+    &__desc {
+    position: absolute;
+    max-width: calc(50vw - var(--spacing-l));
+
+    bottom: var(--spacing-l);
+    right: var(--spacing-l);
+    padding: var(--spacing-s);
+
+    color: var(--color-text-light);
+    background: var(--color-black-opacity-25);
+
+    //text-transform: uppercase;
+    font-size: var(--fontsize-small);
+    }
+
+    &__indicators {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-xxs);
+
+    height: 100%;
+
+    position: absolute;
+    top: 0px;
+
+    padding-left: var(--spacing-l);
+
+    z-index: 0;
+    }
+
+    &__indicator {
+    display: inline-block;
+    width: calc(var(--spacing-xxs)/2);
+    height: var(--spacing-s);
+    border-radius: var(--spacing-l);
+    background: var(--color-black-opacity-25);
+    transition: all 0.3s;
+    opacity: 0.5;
+    transform: scaleX(1);
+
+    &--active {
+      height: var(--spacing-l);
+      opacity: 1;
+      background: var(--color-white);
+      transform: scaleX(1.5);
+    }
+  }
+}
+
+@media all and (min-width: 768px) {
+
+    .banner {
+        font-size: var(--fontsize-core);
+
+        & img {
+        aspect-ratio: 18/5;
+        }
+        &__desc {
+        bottom: var(--spacing-l);
+        right: var(--spacing-xl);
+        max-width: calc(25vw - var(--spacing-l));
+        }
+    }
+
+}
+
+@media all and (min-width: 1440px) {
+
+    .banner {
+        &__desc {
+        bottom: var(--spacing-l);
+        right: var(--spacing-xxl);
+        max-width: calc(12.5vw - var(--spacing-l));
+        }
+    }
+
+}
+
+/* Intro */
+
+.grid-layout__header--center{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.grid-layout__header--center h1{
+    max-width: 50vw;
+}
+
+@media all and (min-width: 768px) {
+
+    .grid-layout__header--center h1{
+        max-width: none;
+    }
+    
+}
+
+@media all and (min-width: 1024px) {
+
+    .grid-layout__header--center p{
+        max-width: none;
+        font-size: 18px;
+    }
+
+}
+
+@media all and (min-width: 1440px) {
+
+    .grid-layout__header--center{
+        grid-column: 4 / -4;
+    }
+
+    .grid-layout__header--center h1{
+        text-wrap-mode: nowrap;
+
+    }
+}
+
+/* Carousel */
+.carousel {
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacing-m);
+    overflow-x: auto;           /* enable horizontal scroll */
+    scroll-behavior: smooth;
+    padding-top: var(--spacing-s);
+
+    scroll-snap-type: x mandatory;
+}
+
+.carousel__slide {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-s);
+    flex: 0 0 100%;             /* don't shrink, don't grow, stay at 100% */
+    height: auto;       
+    position: relative;
+    overflow: hidden;
+
+    cursor: pointer;
+
+    scroll-snap-align: center;
+}
+
+.carousel__slide img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 4 / 5;  
+    object-fit: cover;       /* preserve aspect, center & crop to fill */
+    object-position: center; /* ensure centered cropping */
+    display: block;
+
+    //filter: sepia(100%) brightness(105%) hue-rotate(-48deg) saturate(266%) contrast(532%);
+
+    transition: 0.25s ease-in-out;
+}
+
+.carousel__slide img:hover {
+
+    transform: scale(var(--scale-hover));
+    filter: none;
+
+}
+
+.carousel__description {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xxs);
+}
+
+.carousel--2items{
+    padding-top: 0px;
+
+}
+
+.carousel__slide-img {
+    overflow: hidden;
+}
+
+@media all and (min-width: 768px) {
+
+    .carousel {
+        overflow-x: visible;     
+        gap: var(--spacing-s);       
+    }
+
+    .carousel__slide {
+        flex: auto;
+    }
+
+    .carousel__slide img {
+        aspect-ratio: 1/1;
+    }
+
+    .carousel--2items{
+        overflow-x: auto;
+
+        .carousel__slide {
+            flex: 0 0 calc(50% - calc(var(--spacing-s)/2));
+
+            & img {
+                aspect-ratio: 4/5;
+            }
+        }
+    }
+
+}
+
+@media all and (min-width: 1024px) {
+
+    .carousel--2items {
+        h2{
+            font-size: var(--fontsize-p);
+        }
+
+        .carousel__slide {
+            flex: auto;
+        }
+    }
+
+}
+
+/* ===================================
+=SERVICES
+=================================== */
+
+.grid-layout__content--services{
+    gap: var(--spacing-s);
+}
+
+.grid-layout__content--services > *{
+    border-bottom: 1px solid var(--color-black);
+    padding-bottom: var(--spacing-s);
+}
+
+.hide-content{
+    visibility: hidden;
+}
+
+.service-header{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.service-header :first-child{
+    grid-column: 1 / 3;
+}
+
+.service-header :nth-child(2){
+    grid-column: 4 / 5;
+}
+
+.service-header :last-child{
+    grid-column: 5 / 6;
+    text-align: right;
+}
+
+.service-content input {
+  display: none;
+}
+
+.service-content {
+    padding-block: var(--spacing-s);
+}
+
+@media all and (min-width: 1440px) {
+
+    .service-content {
+        max-width: 40vw;
+    }
+
+}
+
+.service__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+
+    padding-inline: var(--spacing-s);
+}
+
+.service__item {
+
+    font-size: var(--fontsize-core);
+
+}
+
+.service__item p:first-child {
+
+    font-weight: 600;
+
+}
+
+.service__item p:last-child {
+
+    
+
+}
+
+/* Row of clickable labels */
+.tab-buttons {
+  display: flex;
+  padding-top: var(--spacing-s);
+  gap: var(--spacing-xxs);
+}
+
+.tab-buttons label {
+  padding: var(--spacing-xxs) var(--spacing-xs);
+
+  font-size: var(--fontsize-small);
+
+  border: 1px solid var(--color-black);
+  border-radius: var(--spacing-l);
+
+  transition: 0.25s ease-in-out;
+
+  cursor: pointer;
+}
+
+/* Hide all content by default */
+.tab-content {
+  display: none;
+  margin-top: var(--spacing-s);
+  gap: calc(var(--spacing-xxs));
+}
+
+.tab-content__project{
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-xxs));
+}
+
+.tab-content__image{
+    overflow: hidden;
+}
+
+.tab-content__image img{
+    aspect-ratio: 1/1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;       /* preserve aspect, center & crop to fill */
+    object-position: center; /* ensure centered cropping */
+    display: block;
+    
+    filter: grayscale(100%);    
+
+    transition: 0.25s ease-in-out;
+}
+
+.tab-content__image img:hover {
+
+    transform: scale(1.125);
+    filter: none;
+
+}
+
+
+.tab-content__description{
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Show the matched content */
+/* ======== OLD ========
+#tab1:checked ~ #content1 { display: flex; }
+#tab2:checked ~ #content2 { display: flex; }
+#tab3:checked ~ #content3 { display: flex; }
+*/
+
+/* ======== NEW ======== */
+.projectSub__input:checked + .tab-content {
+
+    display: flex;
+
+}
+
+/* Optional: highlight active tab */
+/* ======== OLD ========
+#tab1:checked + #tab2 + #tab3 ~ .tab-buttons label[for="tab1"],
+#tab2:checked + #tab3 ~ .tab-buttons label[for="tab2"],
+#tab3:checked ~ .tab-buttons label[for="tab3"] {
+  background: var(--color-black);
+  color: var(--color-text-light);
+}
+*/
+
+/* ======== NEW ======== */
+.service-content:has(#tab1:checked) .tab-buttons label[for="tab1"],
+.service-content:has(#tab2:checked) .tab-buttons label[for="tab2"],
+.service-content:has(#tab3:checked) .tab-buttons label[for="tab3"],
+.service-content:has(#tab4:checked) .tab-buttons label[for="tab4"],
+.service-content:has(#tab5:checked) .tab-buttons label[for="tab5"],
+.service-content:has(#tab6:checked) .tab-buttons label[for="tab6"],
+.service-content:has(#tab7:checked) .tab-buttons label[for="tab7"],
+.service-content:has(#tab8:checked) .tab-buttons label[for="tab8"],
+.service-content:has(#tab9:checked) .tab-buttons label[for="tab9"],
+.service-content:has(#tab10:checked) .tab-buttons label[for="tab10"],
+.service-content:has(#tab11:checked) .tab-buttons label[for="tab11"],
+.service-content:has(#tab12:checked) .tab-buttons label[for="tab12"],
+.service-content:has(#tab13:checked) .tab-buttons label[for="tab13"] {
+    background: var(--color-black);
+    color: var(--color-text-light);
+}
+

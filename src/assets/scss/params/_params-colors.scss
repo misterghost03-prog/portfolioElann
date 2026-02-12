@@ -1,0 +1,23 @@
+/* ===================================
+=colors
+=================================== */
+
+:root {
+    /* basic variables */
+    --color-white: #FFFCFC;
+
+    --color-black: #030000; // default
+    --color-black-75: #423F3F;
+    --color-black-50: #817E7E;
+    --color-black-25:  #C0BDBD;
+    --color-black-opacity-75: rgba(3, 0, 0, 0.75);  
+    --color-black-opacity-50: rgba(3, 0, 0, 0.50);
+    --color-black-opacity-25: rgba(3, 0, 0, 0.25);
+    
+    /* incident variables */
+    --color-background: var(--color-white);
+    --color-text: var(--color-black);
+    --color-text-75: var(--color-black-75);
+    --color-text-50: var(--color-black-50);
+    --color-text-light: var(--color-white);
+  }

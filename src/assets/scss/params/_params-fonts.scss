@@ -1,0 +1,96 @@
+/* ===================================
+=font size
+=================================== */
+
+:root {
+    /* basic variables */
+    --fontsize-h1: calc(61.04 / 16 * 1rem);
+    --fontsize-h2: calc(48.83 / 16 * 1rem);
+    --fontsize-h3: calc(39.06 / 16 * 1rem);
+    --fontsize-h4: calc(31.25 / 16 * 1rem);
+    --fontsize-h5: calc(25 / 16 * 1rem);
+    --fontsize-p: 1rem;
+    --fontsize-small: calc(12.8 / 16 * 1rem);
+    --fontsize-xsmall: calc(10.24 / 16 * 1rem);
+
+
+    /* mobile variables */
+    --fontsize-core: var(--fontsize-p);
+    --fontsize-subtitle: var(--fontsize-p);
+    --fontsize-title: var(--fontsize-h5);
+
+    /* tablet variables */    
+    @media all and (min-width: 768px) {
+
+
+        --fontsize-core: var(--fontsize-p);
+        --fontsize-subtitle: var(--fontsize-p);
+        --fontsize-title: var(--fontsize-h4);
+
+    }
+
+    /* intermediate variables */    
+    @media all and (min-width: 1024px) {
+
+        --fontsize-core: var(--fontsize-p);
+        --fontsize-subtitle: var(--fontsize-h5);
+        --fontsize-title: var(--fontsize-h3);
+
+    }   
+    
+    /* desktop variables */    
+    @media all and (min-width: 1440px) {
+
+        --fontsize-core: var(--fontsize-p);
+        --fontsize-subtitle: var(--fontsize-h5);
+        --fontsize-title: var(--fontsize-h1);
+
+    }   
+    
+}
+
+/* ===================================
+=font family
+=================================== */
+
+:root {
+
+    --fontfamily-DMSans: "DMSans";    
+
+}
+
+/* ===================================
+=font weight
+=================================== */
+
+:root {
+
+    --fontweight-h1: 700;
+    --fontweight-h2: 600;
+    --fontweight-p: 400;   
+
+}
+
+/* ===================================
+=font color
+=================================== */
+
+:root {
+
+    --fontcolor: var(--color-text);
+    --fontcolor-75: var(--color-text-75);
+    --fontcolor-50: var(--color-text-50);
+
+}
+
+/* ===================================
+=classes
+=================================== */
+
+.fc-75 {
+    color: var(--fontcolor-75);
+}
+
+.fc-50 {
+    color: var(--fontcolor-50);
+}
