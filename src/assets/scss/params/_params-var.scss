@@ -1,0 +1,77 @@
+:root {
+
+    --color-green: #83B692;
+    --color-bleu: #6481F6;
+    --color-red: #ED3E12;
+    --color-yellow: #F0A202;
+    --color-white: #F6F6EC;
+    --color-black: #1E1515;
+
+    --color-gradient: linear-gradient(135deg, var(--color-green), var(--color-white));
+
+    --color-font-100: var(--color-black);
+    --color-font-75: #454343;
+    --color-font-50: #807f7f;
+    --color-font-inverted: var(--color-white);
+
+    --color-current: var(--color-prod);
+
+    --projectImg-width: 25vw;
+    --projects-witdh: 40%;
+    --projects-height: 80%;
+
+    --font-size-h3: calc(18 / 16 * 1rem);
+    --font-size-h4: calc(16 / 16 * 1rem);
+    --font-size-core: calc(12 / 16 * 1rem);
+
+    --font-family-title: "Gambetta", serif;
+    --font-family-core: "DM Sans", sans-serif;
+
+    --shy-scale: 0.65;
+    --shy-opacity: 0.35;
+
+    --spacing-xxs: 3px;
+    --spacing-xs: 6px;
+    --spacing-s: 12px;
+    --spacing-m: 18px;
+    --spacing-l: 24px;
+    --spacing-xl: 36px;
+    --spacing-xxl: 48px;
+    --spacing-jumbo: 96px;
+    --spacing-jumbox2: 128px;
+
+    --animation-timing: 0.20s;
+    --animation-ease: ease-out;
+
+    --style-background-newspaper: var(--color-white);
+    --style-background-gradient: var(--color-gradient);
+    --style-border-newspaper: 0.5px solid var(--color-black);
+    --style-border-gradient: none;
+
+    --cell-background: var(--style-background-newspaper);
+    --cell-border: var(--style-border-newspaper);
+
+}
+
+@media all and (min-width: 1024px) {
+
+    :root {
+
+        --font-size-h3: calc(22 / 16 * 1rem);
+        --font-size-h4: calc(18 / 16 * 1rem);
+        --font-size-core: calc(16 / 16 * 1rem);
+
+
+        --spacing-xxs: 6px;
+        --spacing-xs: 9px;
+        --spacing-s: 18px;
+        --spacing-m: 24px;
+        --spacing-l: 36px;
+        --spacing-xl: 48px;
+        --spacing-xxl: 64px;
+        --spacing-jumbo: 128px;
+        --spacing-jumbox2: 192px;
+
+    }
+
+}

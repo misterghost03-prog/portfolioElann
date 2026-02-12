@@ -10,7 +10,21 @@ import path from "path";
 export default async function (eleventyConfig) {
   // Projects collection
   eleventyConfig.addCollection("projects", function (collectionApi) {
-    return collectionApi.getFilteredByGlob("./src/projects/*.md");
+    return collectionApi.getFilteredByGlob("./src/projects/**/*.md");
+  });
+
+  // Optional: separate collections by subfolder
+  eleventyConfig.addCollection("projectsDev", function (collectionApi) {
+    return collectionApi.getFilteredByGlob("./src/projects/dev/*.md");
+  });
+  eleventyConfig.addCollection("projectsDevWeb", function (collectionApi) {
+    return collectionApi.getFilteredByGlob("./src/projects/dev_web/*.md");
+  });
+  eleventyConfig.addCollection("projectsGraphisme", function (collectionApi) {
+    return collectionApi.getFilteredByGlob("./src/projects/graphisme/*.md");
+  });
+  eleventyConfig.addCollection("projectsProd", function (collectionApi) {
+    return collectionApi.getFilteredByGlob("./src/projects/prod/*.md");
   });
 
   // Add slug filter to slugify product names for URLs

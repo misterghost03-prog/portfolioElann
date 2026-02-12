@@ -1,0 +1,118 @@
+.content {
+    display: flex;
+    flex-direction: column;
+
+    height: 100vh;
+    width: 100%;
+}
+
+@media all and (min-width: 1024px) {
+
+    .content {
+        flex-direction: row-reverse;
+    }
+
+}
+
+.macro {
+
+    width: 100%;
+    height: 100%;
+
+    transition: all 0.2s  var(--animation-ease);
+}
+
+.macro1 {
+
+    display: flex;
+    flex-direction: column;
+}
+
+.macro2 {
+    display: flex;
+    flex-direction: column;
+}
+
+.macro3 {
+    display: flex;
+    flex-direction: row;
+}
+
+.cell {
+
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    position: relative;
+
+    border: var(--cell-border);
+    background: var(--cell-background);
+    color: var(--color-font-100);
+
+    transition: width var(--animation-timing) var(--animation-ease), height var(--animation-timing) var(--animation-ease);
+}
+
+.cell__title {
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    padding: var(--spacing-s) var(--spacing-m);
+    box-sizing: border-box;
+
+    font-size: calc(18 / 16 * 1rem);
+    font-weight: 300;
+    font-family: "DM Sans", sans-serif;
+}
+
+.cell__content {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 100%;
+    width: 100%;
+
+    overflow: hidden;
+
+    transition: width var(--animation-timing) var(--animation-ease), height var(--animation-timing) var(--animation-ease);
+
+}
+
+@media all and (min-width: 1024px) {
+
+    .macro2 {
+        width: 40%;
+    }
+
+    .macro3 {
+        height: 80%;
+    }
+
+    .cell1 {
+        height: 33%;
+    }
+
+}
+
+/* ======================
+         PANNELS
+====================== */
+
+
+.label__pannel0 {
+    pointer-events: none;
+}
+
+.label__pannel {
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+}

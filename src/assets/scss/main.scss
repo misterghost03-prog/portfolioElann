@@ -5,8 +5,14 @@
 @use "./base/base-html.scss" as *;
 @use "./base/base-fonts.scss" as *;
 
-@use "./params/params-colors.scss" as *;
-@use "./params/params-fonts.scss" as *;
+@use "./params/params-var.scss" as *;
 @use "./params/params-icons.scss" as *;
 
 @use "./pages/pages-index.scss" as *;
+
+@use "./cells/cells.scss" as *;
+@use "./cells/cells-about.scss" as *;
+@use "./cells/cells-projects.scss" as *;
+@use "./cells/cells-skills.scss" as *;
+@use "./cells/cells-settings.scss" as *;
+@use "./cells/cells-contact.scss" as *;

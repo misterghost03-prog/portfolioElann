@@ -1,0 +1,65 @@
+/* Selection */
+
+.pannel5:checked ~ .content .cell1{
+        
+    height: 75%;
+
+}
+
+.pannel5:checked ~ .content .cell3{
+        
+    height: 50%;
+
+}
+
+.pannel5:checked ~ .content .macro1{
+        
+    height: 40%;
+
+}
+.pannel5:checked ~ .content .cell4{
+        
+    width: 50%;
+
+}
+
+.pannel5:checked ~ .content .label__pannel5{
+        
+    pointer-events: all;
+
+}
+
+@media all and (min-width: 1024px) {
+
+
+    .pannel5:checked ~ .content .macro2{
+        
+        width: 100%;
+
+    }
+
+    .pannel5:checked ~ .content .cell1{
+            
+        height: 33%;
+
+    }
+
+    .pannel5:checked ~ .content .cell5{
+            
+        width: 200%;
+
+    }
+    .pannel5:checked ~ .content .cell4{
+        
+        width: 100%;
+
+    }
+
+    .pannel5:checked ~ .content .macro1{
+            
+        width: 50%;
+        height: 100%;
+
+    }
+
+}

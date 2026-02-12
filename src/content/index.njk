@@ -6,6 +6,300 @@ permalink: index.html
 
 {% block content %}
 
-    
+</ul>
+
+        <div class="container">
+        <!-- pannels -->
+        <input type="radio" class="pannel1" id="pannel1" name="pannel">
+        <input type="radio" class="pannel2" id="pannel2" name="pannel">
+        <input type="radio" class="pannel3" id="pannel3" name="pannel">
+        <input type="radio" class="pannel4" id="pannel4" name="pannel">
+        <input type="radio" class="pannel5" id="pannel5" name="pannel">
+        <input type="radio" class="pannel0" id="pannel0" name="pannel">
+
+        <!-- styles -->
+        <input type="radio" id="style1" name="style" >
+        <input type="radio" id="style2" name="style" checked>
+
+
+        <div class="content">
+
+            <div class="macro macro1"> <!-- macro1 -->
+                <!-- Cell 1 / About -->
+                <div class="cell cell1 grain"> 
+                    <div class="cell__content">
+                        <h2 class="cell__title">.about me</h2>
+                        <div class="about__content">
+                            <ul class="about__list">
+                                <li class="about__item">
+                                    <p class="about__title">nom</p>
+                                    <p class="about__text">Elann Fraiture</p>
+                                </li>
+                                <li class="about__item">
+                                    <p class="about__title">age</p>
+                                    <p class="about__text">23 ans</p>
+                                </li>
+                                <li class="about__item">
+                                    <p class="about__title">pays</p>
+                                    <p class="about__text">Belgique</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div> 
+                    <label class="label__pannel label__pannel1" for="pannel1"></label>
+                    <label class="label__pannel label__pannel1 label__pannel0" for="pannel0"></label>
+                </div>
+                <!-- Cell 2 / Projects -->
+                <div class="cell cell2 grain"> 
+                    <div class="cell__content">
+                        <h2 class="cell__title">.projects</h2>
+
+                        <ul class="categories__list">
+                            <li class="categories__item">
+                                <p class="categorie__name">
+                                    web dev
+                                </p>
+                                <div class="separator"></div>
+                                <ul class="projectsname__list">
+                                    {% for project in collections.projectsDevWeb %}
+                                        <li class="projectsname__item">
+                                            <label for="project__{{ project.data.projectTag }}">
+                                                <p class="projectname__title">{{ project.data.title }}</p>
+                                                <p class="projectname__client">{{ project.data.client }}</p>
+                                            </label>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                            <li class="categories__item">
+                                <p class="categorie__name">
+                                    graphisme
+                                </p>
+                                <div class="separator"></div>
+                                <ul class="projectsname__list">
+                                    {% for project in collections.projectsGraphisme %}
+                                        <li class="projectsname__item">
+                                            <label for="project__{{ project.data.projectTag }}">
+                                                <p class="projectname__title">{{ project.data.title }}</p>
+                                                <p class="projectname__client">{{ project.data.client }}</p>
+                                            </label>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                            <li class="categories__item">
+                                <p class="categorie__name">
+                                    developpement
+                                </p>
+                                <div class="separator"></div>
+                                <ul class="projectsname__list">
+                                    {% for project in collections.projectsDev %}
+                                        <li class="projectsname__item">
+                                            <label for="project__{{ project.data.projectTag }}">
+                                                <p class="projectname__title">{{ project.data.title }}</p>
+                                                <p class="projectname__client">{{ project.data.client }}</p>
+                                            </label>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                            <li class="categories__item">
+                                <p class="categorie__name">
+                                    production
+                                </p>
+                                <div class="separator"></div>
+                                <ul class="projectsname__list">
+                                    {% for project in collections.projectsProd %}
+                                        <li class="projectsname__item">
+                                            <label for="project__{{ project.data.projectTag }}">
+                                                <p class="projectname__title">{{ project.data.title }}</p>
+                                                <p class="projectname__client">{{ project.data.client }}</p>
+                                            </label>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        </ul>
+
+                    </div> 
+                    <input type="radio" class="input__project-close" id="project__close" name="project" checked>
+                    <div class="projects__container">
+                        <ul class="projects__list">
+
+                            {% for project in collections.projects %}
+
+                                <input type="radio" class="input__project" id="project__{{ project.data.projectTag }}" name="project">
+                                <li class="projects__item">
+                                    <div class="project__content">
+                                        <label class="label__project__close" for="project__close">X</label>
+                                        <div class="project__infos">
+                                            <h2 class="project__name">{{ project.data.title }}</h2>
+                                            <p class="project__client">{{ project.data.client }}</p>
+                                        </div>
+                                        <div class="project__paragraph">
+                                            <h3 class="paragraph__subtitle">/desc</h3>
+                                            <p class="paragraph__text project__desc">
+                                                {{ project.data.description | join("<br>") | safe }}
+                                            </p>
+                                        </div>
+                                        <div class="project__paragraph">
+                                            <h3 class="paragraph__subtitle">/date</h3>
+                                            <p class="paragraph__text project__desc">
+
+                                                {% for date in project.data.dates %}
+                                                    {% if not loop.first %} - {% endif %}
+                                                    {{ date | monthFrench }} {{ date.getFullYear() }}
+                                                {% endfor %}
+                                            </p>
+                                        </div>
+                                        <div class="project__paragraph">
+                                            <h3 class="paragraph__subtitle">/collaborators</h3>
+                                            <p class="paragraph__text project__desc">
+                                                {% if project.data.collaborators %}
+                                                    {{ project.data.collaborators | join(", ") }}
+                                                {% else %}
+                                                    Aucune collaboration
+                                                {% endif %}
+                                            </p>
+                                        </div>
+                                        <div class="project__skills">
+                                            <ul class="project__skills-list">
+                                                {% for skill in project.data.skills %}
+                                                    <li class="projects__skills-item">{{ skill.label }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="project__gallery">
+                                        <label class="label__gallery" for="project__gallery-2"></label>
+                                        <input type="checkbox" class="input__project-gallery" id="project__gallery-2" name="project">
+
+                                        HAHAH <br><br><br>
+                                        HAHAH <br><br><br>
+                                        HAHAH <br><br><br>
+                                        HAHAH <br><br><br>
+                                        HAHAH <br><br><br>
+                                        HAHAH <br><br><br>
+                                        HAHAH <br><br><br>
+                                        HAHAH <br><br><br>
+                                        HAHAH <br><br><br>
+                                        HAHAH <br><br><br>
+                                        HAHAH <br><br><br>
+                                        HAHAH <br><br><br>
+                                        BABABABAABABABAB <br><br><br>
+                                        BABABABAABABABAB <br><br><br>
+                                        BABABABAABABABAB <br><br><br>
+                                        BABABABAABABABAB <br><br><br>
+                                        BABABABAABABABAB <br><br><br>
+                                        BABABABAABABABAB <br><br><br>
+                                        BABABABAABABABAB <br><br><br>
+                                        BABABABAABABABAB <br><br><br>
+                                        BABABABAABABABAB <br><br><br>
+                                    </div>
+                                </li>
+                            {% endfor %}
+
+                        </ul>
+                    </div>
+                    <label class="label__pannel label__pannel2" for="pannel2"></label>
+                    <label class="label__pannel label__pannel2 label__pannel0" for="pannel0"></label>
+                </div>
+            </div>
+
+            <div class="macro macro2"> <!-- macro2 -->
+                <!-- Cell 3 / Skills -->
+                <div class="cell cell3 grain"> 
+                    <div class="cell__content">
+                        <h2 class="cell__title">.skills and softwares</h2>
+                        <ul class="softwares__list">
+                            <li class="softwares__item">
+                                <img class="software__img" src="imgs/software_Illustrator.png" alt="Software 1">
+                                <h3 class="software__name">Adobe Illustrator</h3>
+                                <div class="software__popup">
+                                    <p class="software__desc">Programme de design 2D de la suite Adobe Creative Cloud.</p>
+                                    <div class="software__master">
+                                        <ul class="master__list">
+                                            <li class="master__item master__item-full"></li>
+                                            <li class="master__item master__item-full"></li>
+                                            <li class="master__item master__item-full"></li>
+                                            <li class="master__item master__item-full"></li>
+                                            <li class="master__item"></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="softwares__item">
+                                <img class="software__img" src="imgs/software_Illustrator.png" alt="Software 1">
+                                <h3 class="software__name">Adobe Illustrator</h3>
+                                <div class="software__popup"></div>
+                            </li>
+                            <li class="softwares__item">
+                                <img class="software__img" src="imgs/software_Illustrator.png" alt="Software 1">
+                                <h3 class="software__name">Adobe Illustrator</h3>
+                                <div class="software__popup"></div>
+                            </li>
+                            <li class="softwares__item">
+                                <img class="software__img" src="imgs/software_Illustrator.png" alt="Software 1">
+                                <h3 class="software__name">Adobe Illustrator</h3>
+                                <div class="software__popup"></div>
+                            </li>
+                            <li class="softwares__item">
+                                <img class="software__img" src="imgs/software_Illustrator.png" alt="Software 1">
+                                <h3 class="software__name">Adobe Illustrator</h3>
+                                <div class="software__popup"></div>
+                            </li>
+                            <li class="softwares__item">
+                                <img class="software__img" src="imgs/software_Illustrator.png" alt="Software 1">
+                                <h3 class="software__name">Adobe Illustrator</h3>
+                                <div class="software__popup"></div>
+                            </li>
+                            <li class="softwares__item">
+                                <img class="software__img" src="imgs/software_Illustrator.png" alt="Software 1">
+                                <h3 class="software__name">Adobe Illustrator</h3>
+                                <div class="software__popup"></div>
+                            </li>
+                            <li class="softwares__item">
+                                <img class="software__img" src="imgs/software_Illustrator.png" alt="Software 1">
+                                <h3 class="software__name">Adobe Illustrator</h3>
+                                <div class="software__popup"></div>
+                            </li>
+                        </ul>
+                    </div> 
+                    <label class="label__pannel label__pannel3" for="pannel3"></label>
+                    <label class="label__pannel label__pannel3 label__pannel0" for="pannel0"></label>
+                </div>
+
+                <div class="macro macro3"> <!-- macro3 -->
+                    <!-- Cell 4 / Settings -->
+                    <div class="cell cell4 grain"> 
+                        <div class="cell__content">
+                            <h2 class="cell__title">.settings</h2>
+                            <ul class="styles__list">
+                                <li class="styles__item">
+                                    <label for="style1">Newspaper</label>
+                                </li>
+                                <li class="styles__item">
+                                    <label for="style2">Noisy Gradient</label>
+                                </li>
+                            </ul>
+                        </div> 
+                        <label class="label__pannel label__pannel4" for="pannel4"></label>
+                        <label class="label__pannel label__pannel4 label__pannel0" for="pannel0"></label>
+                    </div>
+
+                    <!-- Cell 5 / Contact -->
+                    <div class="cell cell5 grain"> 
+                        <div class="cell__content">
+                            <h2 class="cell__title">.contact</h2>
+                        </div> 
+                        <label class="label__pannel label__pannel5" for="pannel5"></label>
+                        <label class="label__pannel label__pannel5 label__pannel0" for="pannel0"></label>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
 
 {% endblock %}
