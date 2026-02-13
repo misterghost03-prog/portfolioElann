@@ -8,10 +8,26 @@ import Image from "@11ty/eleventy-img";
 import path from "path";
 import fs from "fs/promises";
 import { access } from "fs/promises";
+import { execFile } from "child_process";
+import { promisify } from "util";
 import { createRequire } from "module";
 
 const require = createRequire(import.meta.url);
-const pdfPoppler = require("pdf-poppler");
+const execFileAsync = promisify(execFile);
+
+function loadPdfPoppler() {
+  if (process.platform === "linux") {
+    return null;
+  }
+
+  try {
+    return require("pdf-poppler");
+  } catch {
+    return null;
+  }
+}
+
+const pdfPoppler = loadPdfPoppler();
 
 const PDF_SRC_DIR = "./src/assets/medias/pdf";
 const PDF_OUTPUT_DIR = "./dist/assets/medias/pdf-pages";
@@ -72,13 +88,24 @@ async function convertPdfToImages(fileName, options = {}) {
   }
 
   try {
-    await pdfPoppler.convert(path.resolve(pdfInputPath), {
-      format: "png",
-      scale,
-      out_dir: path.resolve(outputDir),
-      out_prefix: "page",
-      page: null,
-    });
+    if (pdfPoppler && process.platform !== "linux") {
+      await pdfPoppler.convert(path.resolve(pdfInputPath), {
+        format: "png",
+        scale,
+        out_dir: path.resolve(outputDir),
+        out_prefix: "page",
+        page: null,
+      });
+    } else {
+      const outputPrefix = path.resolve(path.join(outputDir, "page"));
+      await execFileAsync("pdftocairo", [
+        "-png",
+        "-scale-to",
+        String(scale),
+        path.resolve(pdfInputPath),
+        outputPrefix,
+      ]);
+    }
 
     return collectGeneratedPages(outputDir, baseName);
   } catch (error) {
@@ -203,7 +230,7 @@ export default async function (eleventyConfig) {
         const requestedPdfPath = path.join(PDF_SRC_DIR, normalizedName);
         const hasPdfFile = await fileExists(requestedPdfPath);
         if (hasPdfFile) {
-          return `<p class="gallery__empty">PDF trouve mais conversion impossible: ${normalizedName}. Verifie la dependance pdf-poppler.</p>`;
+          return `<p class="gallery__empty">PDF trouve mais conversion impossible: ${normalizedName}. Verifie pdf-poppler (win/mac) ou pdftocairo (linux).</p>`;
         }
         return `<p class="gallery__empty">PDF introuvable: ${normalizedName}</p>`;
       }
