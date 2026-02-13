@@ -105,7 +105,7 @@ export default async function (eleventyConfig) {
   // copy files
   eleventyConfig.addPassthroughCopy("./src/assets/fonts");
   //eleventyConfig.addPassthroughCopy("./src/assets/medias"); //-- we don't want to copy all medias unoptimized
-  eleventyConfig.addPassthroughCopy("./src/assets/medias/video");
+  eleventyConfig.addPassthroughCopy("./src/assets/medias/pdf");
 
   // Eleventy dev server config
   eleventyConfig.setServerOptions({

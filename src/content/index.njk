@@ -56,9 +56,9 @@ permalink: index.html
 
                         <ul class="categories__list">
                             <li class="categories__item">
-                                <p class="categorie__name">
+                                <h4 class="categorie__name">
                                     web dev
-                                </p>
+                                </h4>
                                 <div class="separator"></div>
                                 <ul class="projectsname__list">
                                     {% for project in collections.projectsDevWeb %}
@@ -72,9 +72,9 @@ permalink: index.html
                                 </ul>
                             </li>
                             <li class="categories__item">
-                                <p class="categorie__name">
+                                <h4 class="categorie__name">
                                     graphisme
-                                </p>
+                                </h4>
                                 <div class="separator"></div>
                                 <ul class="projectsname__list">
                                     {% for project in collections.projectsGraphisme %}
@@ -88,9 +88,9 @@ permalink: index.html
                                 </ul>
                             </li>
                             <li class="categories__item">
-                                <p class="categorie__name">
+                                <h4 class="categorie__name">
                                     developpement
-                                </p>
+                                </h4>
                                 <div class="separator"></div>
                                 <ul class="projectsname__list">
                                     {% for project in collections.projectsDev %}
@@ -104,9 +104,9 @@ permalink: index.html
                                 </ul>
                             </li>
                             <li class="categories__item">
-                                <p class="categorie__name">
+                                <h4 class="categorie__name">
                                     production
-                                </p>
+                                </h4>
                                 <div class="separator"></div>
                                 <ul class="projectsname__list">
                                     {% for project in collections.projectsProd %}
@@ -131,7 +131,7 @@ permalink: index.html
                                 <input type="radio" class="input__project" id="project__{{ project.data.projectTag }}" name="project">
                                 <li class="projects__item">
                                     <div class="project__content">
-                                        <label class="label__project__close" for="project__close">X</label>
+                                        <label class="label__project__close" for="project__close"><h3>X</h3></label>
                                         <div class="project__infos">
                                             <h2 class="project__name">{{ project.data.title }}</h2>
                                             <p class="project__client">{{ project.data.client }}</p>
@@ -174,27 +174,13 @@ permalink: index.html
                                         <input type="checkbox" class="input__project-gallery" id="project__gallery-{{ project.data.projectTag }}" name="project">
                                         <label class="label__gallery" for="project__gallery-{{ project.data.projectTag }}"></label>
 
-                                        HAHAH <br><br><br>
-                                        HAHAH <br><br><br>
-                                        HAHAH <br><br><br>
-                                        HAHAH <br><br><br>
-                                        HAHAH <br><br><br>
-                                        HAHAH <br><br><br>
-                                        HAHAH <br><br><br>
-                                        HAHAH <br><br><br>
-                                        HAHAH <br><br><br>
-                                        HAHAH <br><br><br>
-                                        HAHAH <br><br><br>
-                                        HAHAH <br><br><br>
-                                        BABABABAABABABAB <br><br><br>
-                                        BABABABAABABABAB <br><br><br>
-                                        BABABABAABABABAB <br><br><br>
-                                        BABABABAABABABAB <br><br><br>
-                                        BABABABAABABABAB <br><br><br>
-                                        BABABABAABABABAB <br><br><br>
-                                        BABABABAABABABAB <br><br><br>
-                                        BABABABAABABABAB <br><br><br>
-                                        BABABABAABABABAB <br><br><br>
+                                        <iframe
+                                            class="project__pdf"
+                                            src="/assets/medias/pdf/test.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
+                                            title="Apercu PDF"
+                                            scrolling="no"
+                                            loading="lazy">
+                                        </iframe>
                                     </div>
                                 </li>
                             {% endfor %}

@@ -16,13 +16,23 @@ ul {
 h3 {
 
     font-size: var(--font-size-h3);
-    font-family: "DM Sans", sans-serif;
-
+    font-family: var(--font-family-title);
+    
 }
 
 h4 {
-
+    
     font-size: var(--font-size-h4);
+    font-family: var(--font-family-title);
+    font-weight: 600;
+
+}
+
+p {
+
+    font-size: var(--font-size-core);
+    font-family: var(--font-family-core);
+    font-weight: 300;
 
 }
 
