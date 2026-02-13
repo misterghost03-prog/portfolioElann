@@ -30,6 +30,7 @@ function loadPdfPoppler() {
 const pdfPoppler = loadPdfPoppler();
 
 const PDF_SRC_DIR = "./src/assets/medias/pdf";
+const PDF_PREGENERATED_SRC_DIR = "./src/assets/medias/pdf-pages";
 const PDF_OUTPUT_DIR = "./dist/assets/medias/pdf-pages";
 const PDF_OUTPUT_URL = "/assets/medias/pdf-pages";
 
@@ -70,6 +71,20 @@ async function collectGeneratedPages(outputDir, baseName) {
   return pageFiles.map((file) => `${PDF_OUTPUT_URL}/${baseName}/${file}`);
 }
 
+async function collectAvailablePageUrls(baseName) {
+  const distPages = await collectGeneratedPages(path.join(PDF_OUTPUT_DIR, baseName), baseName);
+  if (distPages.length) {
+    return distPages;
+  }
+
+  const sourcePages = await collectGeneratedPages(path.join(PDF_PREGENERATED_SRC_DIR, baseName), baseName);
+  if (sourcePages.length) {
+    return sourcePages;
+  }
+
+  return [];
+}
+
 async function convertPdfToImages(fileName, options = {}) {
   const scale = options.scale || 1700;
 
@@ -78,11 +93,11 @@ async function convertPdfToImages(fileName, options = {}) {
   const outputDir = path.join(PDF_OUTPUT_DIR, baseName);
 
   if (!(await fileExists(pdfInputPath))) {
-    return [];
+    return collectAvailablePageUrls(baseName);
   }
 
   await fs.mkdir(outputDir, { recursive: true });
-  const existingPages = await collectGeneratedPages(outputDir, baseName);
+  const existingPages = await collectAvailablePageUrls(baseName);
   if (existingPages.length) {
     return existingPages;
   }
@@ -232,7 +247,7 @@ export default async function (eleventyConfig) {
         if (hasPdfFile) {
           return `<p class="gallery__empty">PDF trouve mais conversion impossible: ${normalizedName}. Verifie pdf-poppler (win/mac) ou pdftocairo (linux).</p>`;
         }
-        return `<p class="gallery__empty">PDF introuvable: ${normalizedName}</p>`;
+      return `<p class="gallery__empty">PDF introuvable: ${normalizedName}</p>`;
       }
 
       return pageUrls
@@ -255,6 +270,7 @@ export default async function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("./src/assets/fonts");
   //eleventyConfig.addPassthroughCopy("./src/assets/medias"); //-- we don't want to copy all medias unoptimized
   eleventyConfig.addPassthroughCopy("./src/assets/medias/pdf");
+  eleventyConfig.addPassthroughCopy("./src/assets/medias/pdf-pages");
 
   // Eleventy dev server config
   eleventyConfig.setServerOptions({
