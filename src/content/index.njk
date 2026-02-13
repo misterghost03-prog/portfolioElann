@@ -173,14 +173,9 @@ permalink: index.html
                                     <div class="project__gallery">
                                         <input type="checkbox" class="input__project-gallery" id="project__gallery-{{ project.data.projectTag }}" name="project">
                                         <label class="label__gallery" for="project__gallery-{{ project.data.projectTag }}"></label>
-
-                                        <iframe
-                                            class="project__pdf"
-                                            src="/assets/medias/pdf/test.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
-                                            title="Apercu PDF"
-                                            scrolling="no"
-                                            loading="lazy">
-                                        </iframe>
+                                        <div class="gallery__list">
+                                            {% pdfGallery project.data.pdfFile, project.data.projectTag, project.data.title %}
+                                        </div>
                                     </div>
                                 </li>
                             {% endfor %}

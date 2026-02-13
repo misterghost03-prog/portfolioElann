@@ -3,11 +3,96 @@ import "dotenv/config";
 //import products from "./src/_data/products.js"; // Use ES module import
 import slugify from "slugify";
 //for image optimization
-import Image from "@11ty/eleventy-img"; 
+import Image from "@11ty/eleventy-img";
 //node path module
 import path from "path";
+import fs from "fs/promises";
+import { access } from "fs/promises";
+import { createRequire } from "module";
+
+const require = createRequire(import.meta.url);
+const pdfPoppler = require("pdf-poppler");
+
+const PDF_SRC_DIR = "./src/assets/medias/pdf";
+const PDF_OUTPUT_DIR = "./dist/assets/medias/pdf-pages";
+const PDF_OUTPUT_URL = "/assets/medias/pdf-pages";
+
+function normalizePdfFileName(pdfFile, fallbackTag = "") {
+  let fileName = pdfFile || fallbackTag || "";
+  fileName = String(fileName).trim().replace(/^\/+/, "");
+
+  if (fileName.startsWith("assets/medias/pdf/")) {
+    fileName = fileName.replace(/^assets\/medias\/pdf\//, "");
+  }
+
+  if (fileName.startsWith("src/assets/medias/pdf/")) {
+    fileName = fileName.replace(/^src\/assets\/medias\/pdf\//, "");
+  }
+
+  if (!fileName.toLowerCase().endsWith(".pdf")) {
+    fileName = `${fileName}.pdf`;
+  }
+
+  return fileName;
+}
+
+async function fileExists(filePath) {
+  try {
+    await access(filePath);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function collectGeneratedPages(outputDir, baseName) {
+  const files = await fs.readdir(outputDir).catch(() => []);
+  const pageFiles = files
+    .filter((file) => file.toLowerCase().endsWith(".png"))
+    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+
+  return pageFiles.map((file) => `${PDF_OUTPUT_URL}/${baseName}/${file}`);
+}
+
+async function convertPdfToImages(fileName, options = {}) {
+  const scale = options.scale || 1700;
+
+  const pdfInputPath = path.join(PDF_SRC_DIR, fileName);
+  const baseName = path.parse(fileName).name;
+  const outputDir = path.join(PDF_OUTPUT_DIR, baseName);
+
+  if (!(await fileExists(pdfInputPath))) {
+    return [];
+  }
+
+  await fs.mkdir(outputDir, { recursive: true });
+  const existingPages = await collectGeneratedPages(outputDir, baseName);
+  if (existingPages.length) {
+    return existingPages;
+  }
+
+  try {
+    await pdfPoppler.convert(path.resolve(pdfInputPath), {
+      format: "png",
+      scale,
+      out_dir: path.resolve(outputDir),
+      out_prefix: "page",
+      page: null,
+    });
+
+    return collectGeneratedPages(outputDir, baseName);
+  } catch (error) {
+    console.warn(`[pdfGallery] Conversion impossible for "${fileName}".`);
+    if (error instanceof Error) {
+      console.warn(`[pdfGallery] Root cause: ${error.message}`);
+    }
+    return [];
+  }
+}
 
 export default async function (eleventyConfig) {
+  const pdfGalleryCache = new Map();
+
   // Projects collection
   eleventyConfig.addCollection("projects", function (collectionApi) {
     return collectionApi.getFilteredByGlob("./src/projects/**/*.md");
@@ -94,6 +179,43 @@ export default async function (eleventyConfig) {
 
     return Image.generateHTML(metadata, imageAttributes);
   });
+
+  eleventyConfig.addNunjucksAsyncShortcode(
+    "pdfGallery",
+    async function (pdfFile, fallbackTag = "", altBase = "Project page") {
+      const normalizedName = normalizePdfFileName(pdfFile, fallbackTag);
+      const defaultPdf = "test.pdf";
+
+      if (!pdfGalleryCache.has(normalizedName)) {
+        pdfGalleryCache.set(normalizedName, convertPdfToImages(normalizedName));
+      }
+
+      let pageUrls = await pdfGalleryCache.get(normalizedName);
+
+      if (!pageUrls.length && normalizedName !== defaultPdf) {
+        if (!pdfGalleryCache.has(defaultPdf)) {
+          pdfGalleryCache.set(defaultPdf, convertPdfToImages(defaultPdf));
+        }
+        pageUrls = await pdfGalleryCache.get(defaultPdf);
+      }
+
+      if (!pageUrls.length) {
+        const requestedPdfPath = path.join(PDF_SRC_DIR, normalizedName);
+        const hasPdfFile = await fileExists(requestedPdfPath);
+        if (hasPdfFile) {
+          return `<p class="gallery__empty">PDF trouve mais conversion impossible: ${normalizedName}. Verifie la dependance pdf-poppler.</p>`;
+        }
+        return `<p class="gallery__empty">PDF introuvable: ${normalizedName}</p>`;
+      }
+
+      return pageUrls
+        .map(
+          (pageUrl, index) =>
+            `<img class="gallery__page" src="${pageUrl}" alt="${altBase} - page ${index + 1}" loading="lazy" decoding="async">`
+        )
+        .join("");
+    }
+  );
 
   // avoid processing and watching files
   eleventyConfig.ignores.add("./src/assets/**/*");

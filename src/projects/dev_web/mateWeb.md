@@ -16,4 +16,5 @@ collaborators:
   - "Arno Joachim"
   - "Théo Etienne"
   - "Martin Charlier"
+pdfFile: "test.pdf"
 ---

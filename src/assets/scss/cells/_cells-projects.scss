@@ -289,50 +289,72 @@
     border: solid 1px var(--color-black);
 }
 
-.label__gallery {
-    position: absolute;
-    top: 0;
-    right: 0;
-
-    width: 100% ;
-    height: 100%;
-
-    cursor: pointer;
-    z-index: 4;
-}
-
 .project__gallery {
-    background-color: red;
-
+    
     width: 100%;
     height: auto;
     flex: 1 1 auto;
     min-height: 0;
 
     position: relative;
-
+    
     overflow: hidden;
-
-    transition: all var(--animation-timing) var(--animation-ease);
+    /*
     scrollbar-width: none;
     -ms-overflow-style: none;
+    */
+
+    transition: all var(--animation-timing) var(--animation-ease);
 }
 
+/*
 .project__gallery::-webkit-scrollbar {
     display: none;
 }
+*/
 
-.project__pdf {
+.label__gallery {
+
+    position: sticky;
+    top: 0;
+    right: 0;
+    inset: 0;
+
     display: block;
+    width: 100% ;
+    height: 100%;
+
+    cursor: pointer;
+    z-index: 4;
+
+}
+
+.gallery__list {
     width: 100%;
     height: 100%;
-    border: 0;
-    background: var(--color-white);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-s);
+
+    position: relative;
+    top: -100%;
+}
+
+.gallery__page {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.gallery__empty {
+    padding: var(--spacing-m);
+    font-size: var(--font-size-core);
 }
 
 .project__gallery::before {
     content: "Click";
     position: absolute;
+    z-index: 1;
     inset: 0;
     display: grid;
     place-items: center;
@@ -342,39 +364,23 @@
     font-family: var(--font-family-core);
     color: var(--color-font-inverted);
     background: rgba(30, 21, 21, 0.35);
+    opacity: 0.75;
     pointer-events: none;
     transition: opacity var(--animation-timing) var(--animation-ease);
 }
 
 .project__gallery:hover::before {
-    opacity: 0.5;
+    opacity: 1;
 }
 
 .projects__item:has(.input__project-gallery:checked) .project__gallery {
-    overflow: hidden;
-    filter: none;
+    overflow-y: scroll;
+}
+
+.projects__item:has(.input__project-gallery:checked) .label__gallery {
+    width: 95%;
 }
 
 .projects__item:has(.input__project-gallery:checked) .project__gallery::before {
     opacity: 0;
-}
-
-.projects__item:has(.input__project-gallery:checked) .label__gallery {
-    top: var(--spacing-s);
-    right: var(--spacing-s);
-    width: calc(24 / 16 * 1rem);
-    height: calc(24 / 16 * 1rem);
-    border: 1px solid var(--color-black);
-    background: rgba(246, 246, 236, 0.9);
-}
-
-.projects__item:has(.input__project-gallery:checked) .label__gallery::after {
-    content: "x";
-    position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    font-size: var(--font-size-core);
-    font-family: var(--font-family-core);
-    color: var(--color-black);
 }
