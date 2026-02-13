@@ -15,7 +15,7 @@ permalink: index.html
         <input type="radio" class="pannel3" id="pannel3" name="pannel">
         <input type="radio" class="pannel4" id="pannel4" name="pannel">
         <input type="radio" class="pannel5" id="pannel5" name="pannel">
-        <input type="radio" class="pannel0" id="pannel0" name="pannel">
+        <input type="radio" class="pannel0" id="pannel0" name="pannel" checked>
 
         <!-- styles -->
         <input type="radio" id="style1" name="style" >
@@ -171,8 +171,8 @@ permalink: index.html
                                         </div>
                                     </div>
                                     <div class="project__gallery">
-                                        <label class="label__gallery" for="project__gallery-2"></label>
-                                        <input type="checkbox" class="input__project-gallery" id="project__gallery-2" name="project">
+                                        <input type="checkbox" class="input__project-gallery" id="project__gallery-{{ project.data.projectTag }}" name="project">
+                                        <label class="label__gallery" for="project__gallery-{{ project.data.projectTag }}"></label>
 
                                         HAHAH <br><br><br>
                                         HAHAH <br><br><br>

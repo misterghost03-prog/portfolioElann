@@ -2,13 +2,13 @@
 
 .pannel2:checked ~ .content .cell1{
         
-    height: 20%;
+    height: 10%;
 
 }
 
 .pannel2:checked ~ .content .macro2{
         
-    height: 50%;
+    height: 40%;
 
 }
 
@@ -43,12 +43,14 @@
 }
 
 .categories__list {
+    
     display: grid;
-    grid-template-columns: max-content 1px 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: center;
+    justify-content: center;
     row-gap: var(--spacing-m);
     column-gap: 0;
-    justify-content: center;
+
     height: 100%;
     width: max-content;
     margin: 0 auto;
@@ -56,7 +58,22 @@
 
 }
 
+.pannel0:checked ~ .content .categories__list, .pannel2:checked ~ .content .categories__list {
+
+    display: grid;
+    grid-template-columns: max-content 1px 1fr;
+    align-items: center;
+    justify-content: flex-start;
+    row-gap: var(--spacing-m);
+    column-gap: 0;
+
+}
+
 .categories__item {
+    display: block;
+}
+
+.pannel0:checked ~ .content .categories__item, .pannel2:checked ~ .content .categories__item {
     display: contents;
 }
 
@@ -204,7 +221,7 @@
 
 .project__content {
 
-    padding: var(--spacing-xl);
+    padding: var(--spacing-l);
     box-sizing: border-box;
     max-height: 100%;
 

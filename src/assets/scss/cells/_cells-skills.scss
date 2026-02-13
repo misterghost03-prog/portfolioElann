@@ -53,7 +53,6 @@
 .cell3 {
     overflow: visible;
 }
-
 .softwares__list {
     display: grid;
     grid-template-columns: repeat(4, minmax(var(--spacing-xl), 1fr));
@@ -78,6 +77,7 @@
     }
 
 }
+
 
 .softwares__item {
     border: solid 1px var(--color-font-100);

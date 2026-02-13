@@ -64,10 +64,30 @@
 }
 
 .about__list {
+
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacing-m);
+
+    transition: all var(--animation-timing)  var(--animation-ease);
+
+}
+
+.pannel0:checked ~ .content .about__list, .pannel1:checked ~ .content .about__list {
+
     display: grid;
     grid-template-columns: repeat(2, max-content);
     row-gap: var(--spacing-xs);
     column-gap: var(--spacing-xs);
+
+}
+
+.pannel1:checked ~ .content .about__list {
+
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    row-gap: var(--spacing-m);
+    column-gap: var(--spacing-m);
 
 }
 
