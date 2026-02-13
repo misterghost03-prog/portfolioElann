@@ -81,6 +81,8 @@
     grid-column: 1;
     justify-self: end;
     transition: all var(--animation-timing)  var(--animation-ease);
+
+    font-size: var(--font-size-h4);
 }
 
 .separator {

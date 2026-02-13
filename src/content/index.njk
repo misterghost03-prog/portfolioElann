@@ -212,57 +212,25 @@ permalink: index.html
                     <div class="cell__content">
                         <h2 class="cell__title">.skills and softwares</h2>
                         <ul class="softwares__list">
-                            <li class="softwares__item">
-                                <img class="software__img" src="imgs/software_Illustrator.png" alt="Software 1">
-                                <h3 class="software__name">Adobe Illustrator</h3>
-                                <div class="software__popup">
-                                    <p class="software__desc">Programme de design 2D de la suite Adobe Creative Cloud.</p>
-                                    <div class="software__master">
-                                        <ul class="master__list">
-                                            <li class="master__item master__item-full"></li>
-                                            <li class="master__item master__item-full"></li>
-                                            <li class="master__item master__item-full"></li>
-                                            <li class="master__item master__item-full"></li>
-                                            <li class="master__item"></li>
-                                        </ul>
+                            {% for skill in collections.skills %}
+                                <li class="softwares__item">
+                                    <img class="software__img" src="{{ skill.data.image }}" alt="{{ skill.data.name }}">
+                                    <h3 class="software__name">{{ skill.data.name }}</h3>
+                                    <div class="software__popup">
+                                        <p class="software__desc">{{ skill.data.description }}</p>
+                                        <div class="software__master">
+                                            <ul class="master__list">
+                                                {% for i in range(1, skill.data.rating) %}
+                                                    <li class="master__item master__item-full"></li>
+                                                {% endfor %}
+                                                {% for i in range(skill.data.rating, 5) %}
+                                                    <li class="master__item"></li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                            <li class="softwares__item">
-                                <img class="software__img" src="imgs/software_Illustrator.png" alt="Software 1">
-                                <h3 class="software__name">Adobe Illustrator</h3>
-                                <div class="software__popup"></div>
-                            </li>
-                            <li class="softwares__item">
-                                <img class="software__img" src="imgs/software_Illustrator.png" alt="Software 1">
-                                <h3 class="software__name">Adobe Illustrator</h3>
-                                <div class="software__popup"></div>
-                            </li>
-                            <li class="softwares__item">
-                                <img class="software__img" src="imgs/software_Illustrator.png" alt="Software 1">
-                                <h3 class="software__name">Adobe Illustrator</h3>
-                                <div class="software__popup"></div>
-                            </li>
-                            <li class="softwares__item">
-                                <img class="software__img" src="imgs/software_Illustrator.png" alt="Software 1">
-                                <h3 class="software__name">Adobe Illustrator</h3>
-                                <div class="software__popup"></div>
-                            </li>
-                            <li class="softwares__item">
-                                <img class="software__img" src="imgs/software_Illustrator.png" alt="Software 1">
-                                <h3 class="software__name">Adobe Illustrator</h3>
-                                <div class="software__popup"></div>
-                            </li>
-                            <li class="softwares__item">
-                                <img class="software__img" src="imgs/software_Illustrator.png" alt="Software 1">
-                                <h3 class="software__name">Adobe Illustrator</h3>
-                                <div class="software__popup"></div>
-                            </li>
-                            <li class="softwares__item">
-                                <img class="software__img" src="imgs/software_Illustrator.png" alt="Software 1">
-                                <h3 class="software__name">Adobe Illustrator</h3>
-                                <div class="software__popup"></div>
-                            </li>
+                                </li>
+                            {% endfor %}
                         </ul>
                     </div> 
                     <label class="label__pannel label__pannel3" for="pannel3"></label>

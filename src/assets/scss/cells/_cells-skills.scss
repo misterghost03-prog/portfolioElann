@@ -50,9 +50,10 @@
 
 /* Content */
 
-.cell3 {
+.cell3, .cell3 .cell__content {
     overflow: visible;
 }
+
 .softwares__list {
     display: grid;
     grid-template-columns: repeat(4, minmax(var(--spacing-xl), 1fr));
@@ -117,7 +118,9 @@
 .software__popup {
     position: absolute;
     top: 110%;
-    width: 200%;
+    z-index: 99;
+
+    width: var(--spacing-jumbox2);
     padding: var(--spacing-s);
     background-color: var(--color-white);
     border: var(--cell-border);
